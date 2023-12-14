@@ -17,6 +17,22 @@ public abstract class ControlCurve {
     }
 
     /**
+     * Gets the minimum power
+     * @return The minimum power
+     */
+    public double getMinimumPower() {
+        return minimumPower;
+    }
+
+    /**
+     * Gets the dead zone
+     * @return The dead zone
+     */
+    public double getDeadZone() {
+        return deadZone;
+    }
+
+    /**
      * Gets the raw curve based on the value. Implementing classes should not include the dead zone and minimum value in this calculation.
      * @param value The value that the
      * @return The new value applied to the certain curve

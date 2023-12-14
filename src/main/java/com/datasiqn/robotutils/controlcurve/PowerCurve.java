@@ -15,6 +15,14 @@ public class PowerCurve extends ControlCurve {
         this.power = builder.power;
     }
 
+    /**
+     * Gets the power of this curve
+     * @return The power
+     */
+    public int getPower() {
+        return power;
+    }
+
     @Override
     protected double raw(double value) {
         return (1 - minimumPower) * Math.pow(value, power);
