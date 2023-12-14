@@ -5,7 +5,7 @@ package com.datasiqn.robotutils.controlcurve;
  * @param <T> The type of the implementing class
  * @param <C> The type of the target {@link ControlCurve} class
  */
-public abstract class ControlCurveBuilder<T extends ControlCurveBuilder<T, C>, C extends ControlCurve<T, C>> {
+public abstract class ControlCurveBuilder<T extends ControlCurveBuilder<T, C>, C extends ControlCurve> {
     protected double minimumPower;
     protected double deadZone;
 

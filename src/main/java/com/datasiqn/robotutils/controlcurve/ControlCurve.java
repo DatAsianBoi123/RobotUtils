@@ -6,15 +6,12 @@ package com.datasiqn.robotutils.controlcurve;
  * Using this for drive controls allows a more fine-grain, higher-precision control over robot movement without sacrificing max speed.
  * <p>
  * There are a variety of builtin control curves that can be found in the {@link ControlCurves} class.
- *
- * @param <B> The type of the builder being used
- * @param <T> The type of the implementing class
  */
-public abstract class ControlCurve<B extends ControlCurveBuilder<B, T>, T extends ControlCurve<B, T>> {
+public abstract class ControlCurve {
     protected final double minimumPower;
     protected final double deadZone;
 
-    protected ControlCurve(B builder) {
+    protected ControlCurve(ControlCurveBuilder<?, ?> builder) {
         this.minimumPower = builder.minimumPower;
         this.deadZone = builder.deadZone;
     }

@@ -4,7 +4,7 @@ package com.datasiqn.robotutils.controlcurve;
  * A linear {@link ControlCurve}.
  * @see <a href=https://en.wikipedia.org/wiki/Linear_function_(calculus)>Linear Function</a>
  */
-public class LinearCurve extends ControlCurve<LinearCurve.Builder, LinearCurve> {
+public class LinearCurve extends ControlCurve {
     private LinearCurve(Builder builder) {
         super(builder);
     }

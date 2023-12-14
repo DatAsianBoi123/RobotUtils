@@ -6,7 +6,7 @@ import java.util.logging.Logger;
  * A power {@link ControlCurve}
  * @see <a href=https://en.wikipedia.org/wiki/Exponentiation>Power Function</a>
  */
-public class PowerCurve extends ControlCurve<PowerCurve.Builder, PowerCurve> {
+public class PowerCurve extends ControlCurve {
     private final int power;
 
     private PowerCurve(PowerCurve.Builder builder) {
