@@ -55,7 +55,7 @@ public class ControlCurveTest {
         tester.curveEquals(-0.9, -0.6396);
     }
 
-    private record CurveTester(ControlCurve<?, ?> curve) {
+    private record CurveTester(ControlCurve curve) {
         public void testZeroOnes() {
             exactEquals(0, 0);
             exactEquals(1, 1);
