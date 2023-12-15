@@ -10,10 +10,12 @@ package com.datasiqn.robotutils.controlcurve;
 public abstract class ControlCurve {
     protected final double minimumPower;
     protected final double deadZone;
+    protected final double powerMultiplier;
 
     protected ControlCurve(ControlCurveBuilder<?, ?> builder) {
         this.minimumPower = builder.minimumPower;
         this.deadZone = builder.deadZone;
+        this.powerMultiplier = builder.powerMultiplier;
     }
 
     /**
@@ -33,7 +35,18 @@ public abstract class ControlCurve {
     }
 
     /**
-     * Gets the raw curve based on the value. Implementing classes should not include the dead zone and minimum value in this calculation.
+     * Gets the power multiplier
+     * @return The power multiplier
+     */
+    public double getPowerMultiplier() {
+        return powerMultiplier;
+    }
+
+    /**
+     * Gets the raw curve based on the value.
+     * <p>
+     * Implementing classes should not include the dead zone, minimum value, or max power in this calculation.
+     * Note that most curves will be required to by modified based on the max power. For an example, look at the implementation of the linear {@code ControlCurve}.
      * @param value The value that the
      * @return The new value applied to the certain curve
      */
@@ -45,11 +58,10 @@ public abstract class ControlCurve {
      * @return The new, curved value
      */
     public double get(double value) {
-        double actualValue = Math.abs(value) <= deadZone ? 0 : value;
-
         double curve = raw(value);
-        if (actualValue > 0) return curve + minimumPower;
-        else if (actualValue < 0) return curve - minimumPower;
-        return 0;
+        if (value > deadZone) curve = curve + minimumPower;
+        else if (value < -deadZone) curve = curve - minimumPower;
+        else curve = 0;
+        return curve * powerMultiplier;
     }
 }

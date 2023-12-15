@@ -8,9 +8,10 @@ package com.datasiqn.robotutils.controlcurve;
 public abstract class ControlCurveBuilder<T extends ControlCurveBuilder<T, C>, C extends ControlCurve> {
     protected double minimumPower;
     protected double deadZone;
+    protected double powerMultiplier = 1;
 
     /**
-     * Creates a new builder with {@code minimumPower} and {@code deadZone} set to 0
+     * Creates a new builder with default field values
      */
     public ControlCurveBuilder() { }
 
@@ -32,6 +33,16 @@ public abstract class ControlCurveBuilder<T extends ControlCurveBuilder<T, C>, C
      */
     public T withDeadZone(double deadZone) {
         this.deadZone = deadZone;
+        return getThis();
+    }
+
+    /**
+     * Sets the power multiplier. The output of {@link ControlCurve#get(double)} will be multiplied by this value, and it acts as a sort of power cap.
+     * @param powerMultiplier The new power multiplier to use
+     * @return {@code this}, for chaining
+     */
+    public T withPowerMultiplier(double powerMultiplier) {
+        this.powerMultiplier = powerMultiplier;
         return getThis();
     }
 

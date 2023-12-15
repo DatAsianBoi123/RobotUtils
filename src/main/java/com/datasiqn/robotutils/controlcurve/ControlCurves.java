@@ -3,7 +3,7 @@ package com.datasiqn.robotutils.controlcurve;
 /**
  * A collection of different built-in {@link ControlCurve}s.
  * <p>
- * You can go to <a href=https://www.desmos.com/calculator/0pubv4eu4p>this Desmos graph</a> to better visualize what different control curves do.
+ * You can go to <a href=https://www.desmos.com/calculator/jaa4cadcpf>this Desmos graph</a> to better visualize what different control curves do.
  */
 public final class ControlCurves {
     /**
