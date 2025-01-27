@@ -46,7 +46,7 @@ public abstract class ControlCurve {
      * Gets the raw curve based on the value.
      * <p>
      * Implementing classes should not include the dead zone, minimum value, or max power in this calculation.
-     * Note that most curves will be required to by modified based on the max power. For an example, look at the implementation of the linear {@code ControlCurve}.
+     * Note that most curves will be required to be modified based on the max power. For an example, look at the implementation of the linear {@code ControlCurve}.
      * @param value The value that the
      * @return The new value applied to the certain curve
      */
