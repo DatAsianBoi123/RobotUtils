@@ -12,7 +12,7 @@ public class ControlCurveTest {
         LinearCurve curve = ControlCurves.simpleLinear();
         CurveTester tester = new CurveTester(curve);
 
-        tester.testZeroMinMax();
+        tester.testAll();
         tester.exactEquals(0.2, 0.2);
         tester.exactEquals(-0.9, -0.9);
 
@@ -23,12 +23,9 @@ public class ControlCurveTest {
                 .build();
         tester = new CurveTester(curve);
 
-        tester.testZeroMinMax();
-        tester.exactEquals(0.08, 0);
-        tester.exactEquals(-0.09, 0);
-        tester.curveEquals(0.6, 0.544);
-        tester.curveEquals(0.8, 0.672);
-        tester.curveEquals(-0.3, -0.352);
+        tester.testAll();
+        tester.curveEquals(0.15, 0.23333);
+        tester.curveEquals(0.88, 0.72);
     }
 
     @Test
@@ -36,7 +33,7 @@ public class ControlCurveTest {
         PowerCurve curve = ControlCurves.simplePower(3);
         CurveTester tester = new CurveTester(curve);
 
-        tester.testZeroMinMax();
+        tester.testAll();
         tester.curveEquals(0.3, 0.027);
         tester.curveEquals(0.8, 0.512);
         tester.curveEquals(-0.5, -0.125);
@@ -49,19 +46,33 @@ public class ControlCurveTest {
         tester = new CurveTester(curve);
 
         tester.testZeroMinMax();
-        tester.exactEquals(0.02, 0);
-        tester.exactEquals(-0.05, 0);
-        tester.curveEquals(0.24, 0.0917);
-        tester.curveEquals(0.77, 0.2722);
-        tester.curveEquals(-0.1, -0.0912);
-        tester.curveEquals(-0.9, -0.4861);
+        tester.curveEquals(0.24, 0.1202);
+        tester.curveEquals(0.77, 0.28);
+        tester.curveEquals(-0.1, -0.12);
+        tester.curveEquals(-0.9, -0.487);
     }
 
     private record CurveTester(ControlCurve curve) {
+        public void testAll() {
+            testZeroMinMax();
+            testDeadZone();
+            testMinimumPower();
+        }
+
         public void testZeroMinMax() {
             exactEquals(0, 0);
             exactEquals(1, curve.getPowerMultiplier());
             exactEquals(-1, -curve.getPowerMultiplier());
+        }
+
+        public void testDeadZone() {
+            exactEquals(curve.getDeadZone() / 2, 0);
+            exactEquals(-curve.getDeadZone() / 2, 0);
+        }
+
+        public void testMinimumPower() {
+            exactEquals(curve.getDeadZone(), curve.getMinimumPower());
+            exactEquals(-curve.getDeadZone(), -curve.getMinimumPower());
         }
 
         public void exactEquals(double value, double expected) {
@@ -74,6 +85,7 @@ public class ControlCurveTest {
 
         public void curveEquals(double value, double expected, double delta) {
             assertEquals(expected, curve.get(value), delta);
+            assertEquals(-expected, curve.get(-value), delta);
         }
     }
 }
