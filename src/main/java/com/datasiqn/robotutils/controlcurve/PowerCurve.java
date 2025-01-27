@@ -25,7 +25,7 @@ public class PowerCurve extends ControlCurve {
 
     @Override
     protected double raw(double value) {
-        return (1 - minimumPower) * Math.pow(value, power);
+        return ((powerMultiplier - minimumPower) / Math.pow(1 - deadZone, power)) * Math.pow(value - deadZone, power);
     }
 
     /**

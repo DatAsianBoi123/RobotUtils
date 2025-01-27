@@ -11,7 +11,7 @@ public class LinearCurve extends ControlCurve {
 
     @Override
     protected double raw(double value) {
-        return (1 - minimumPower) * value;
+        return ((powerMultiplier - minimumPower) / (1 - deadZone)) * (value - deadZone);
     }
 
     /**

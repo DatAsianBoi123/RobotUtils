@@ -45,7 +45,7 @@ public abstract class ControlCurve {
     /**
      * Gets the raw curve based on the value.
      * <p>
-     * Implementing classes should not include the dead zone, minimum value, or max power in this calculation.
+     * Implementing classes should not include the dead zone or minimum value in this calculation.
      * Note that most curves will be required to be modified based on the max power. For an example, look at the implementation of the linear {@code ControlCurve}.
      * @param value The value that the
      * @return The new value applied to the certain curve
@@ -58,10 +58,8 @@ public abstract class ControlCurve {
      * @return The new, curved value
      */
     public double get(double value) {
-        double curve = raw(value);
-        if (value > deadZone) curve = curve + minimumPower;
-        else if (value < -deadZone) curve = curve - minimumPower;
-        else curve = 0;
-        return curve * powerMultiplier;
+        if (value >= deadZone) return raw(value) + minimumPower;
+        else if (value <= -deadZone) return -raw(Math.abs(value)) - minimumPower;
+        else return 0;
     }
 }
