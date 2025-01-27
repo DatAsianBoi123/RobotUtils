@@ -1,7 +1,5 @@
 package com.datasiqn.robotutils.controlcurve;
 
-import java.util.logging.Logger;
-
 /**
  * A power {@link ControlCurve}
  * @see <a href=https://en.wikipedia.org/wiki/Exponentiation>Power Function</a>
@@ -50,7 +48,6 @@ public class PowerCurve extends ControlCurve {
         @Override
         protected PowerCurve postBuild() {
             if (power < 1) throw new IllegalStateException("power cannot be smaller than 1");
-            if (power % 2 == 0) Logger.getGlobal().warning("power is a non-odd number. this may lead to unexpected behavior");
 
             return new PowerCurve(this);
         }
