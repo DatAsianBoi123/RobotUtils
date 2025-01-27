@@ -67,10 +67,11 @@ public abstract class ControlCurveBuilder<T extends ControlCurveBuilder<T, C>, C
      * @throws IllegalStateException If any values are invalid or outside their bounds
      */
     public C build() {
+        if (powerMultiplier < 0) throw new IllegalStateException("power multiplier must be positive");
         if (minimumPower < 0) throw new IllegalStateException("minimum power must be positive");
-        if (minimumPower >= 1) throw new IllegalStateException("minimum power cannot be greater than or equal to 1");
+        if (minimumPower > powerMultiplier) throw new IllegalStateException("minimum power cannot be greater than the power multiplier");
         if (deadZone < 0) throw new IllegalStateException("dead zone must be positive");
-        if (deadZone >= 1) throw new IllegalStateException("dead zone cannot be greater than or equal to 1");
+        if (deadZone > 1) throw new IllegalStateException("dead zone cannot be greater than 1");
 
         return postBuild();
     }
